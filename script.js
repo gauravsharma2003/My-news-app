@@ -21,21 +21,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function fetchNews(newsCard) {
     const category = newsCard.id.replace("-news", "");
+    console.log(`Fetching news for category: ${category}`);
 
     fetch(
       `https://newsapi.org/v2/top-headlines?category=${category}&language=en&apiKey=${APIKey}`
     )
-      .then((response) => response.json())
+      .then((response) => {
+        console.log(`Response status: ${response.status}`);
+        return response.json();
+      })
       .then((json) => {
+        console.log(`API response for ${category}:`, json);
         const newsContent = newsCard.querySelector(".news-content");
         if (json.articles && json.articles.length > 0) {
           const article =
             json.articles[Math.floor(Math.random() * json.articles.length)];
           newsContent.innerHTML = `
-                        <h2>${article.title}</h2>
-                        <p>${article.description}</p>
-                        <a href="${article.url}" target="_blank">Read more</a>
-                    `;
+            <h2>${article.title}</h2>
+            <p>${article.description}</p>
+            <a href="${article.url}" target="_blank">Read more</a>
+          `;
         } else {
           newsContent.innerHTML = "No news available.";
         }
@@ -68,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("body").style.background = "transparent";
   }
 
-  //intial news ke liye
+  // Initial news fetch
   document.querySelectorAll(".news-card").forEach((card) => {
     fetchNews(card);
   });
