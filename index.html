@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+</head>
+<body id="body">
+    <video autoplay muted loop onloadeddata="hideBackground()">
+        <source src="./media/background.mp4" type="video/mp4">
+    </video>
+    <div class="container">
+        <div class="news-items">
+            <div class="news-item">
+                <div class="title">
+                    <h3 class="genre">Sports</h3>
+                </div>
+                <div class="news-card" id="sports-news">
+                    <div class="news-content">
+                        <!-- Sports News Content -->
+                    </div>
+                    <div class="close-btn-container">
+                        <button class="close-btn">&times;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="title">
+                    <h3 class="genre">General News</h3>
+                </div>
+                <div class="news-card" id="general-news">
+                    <div class="news-content">
+                        <!-- General News Content -->
+                    </div>
+                    <div class="close-btn-container">
+                        <button class="close-btn">&times;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="title">
+                    <h3 class="genre">Technology</h3>
+                </div>
+                <div class="news-card" id="technology-news">
+                    <div class="news-content">
+                        <!-- Technology News Content -->
+                    </div>
+                    <div class="close-btn-container">
+                        <button class="close-btn">&times;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
