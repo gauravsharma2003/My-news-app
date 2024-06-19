@@ -23,34 +23,38 @@ document.addEventListener("DOMContentLoaded", () => {
         const category = newsCard.id.replace("-news", "");
         console.log(`Fetching news for category: ${category}`);
 
-        fetch(`https://newsapi.org/v2/top-headlines?category=${category}&language=en&apiKey=${APIKey}`)
-            .then((response) => {
-                console.log(`Response status: ${response.status}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then((json) => {
-                console.log(`API response for ${category}:`, json);
-                const newsContent = newsCard.querySelector(".news-content");
-                if (json.articles && json.articles.length > 0) {
-                    const article = json.articles[Math.floor(Math.random() * json.articles.length)];
-                    newsContent.innerHTML = `
-                        <h2>${article.title}</h2>
-                        <p>${article.description}</p>
-                        <a href="${article.url}" target="_blank">Read more</a>
-                    `;
-                } else {
-                    newsContent.innerHTML = "No news available.";
-                }
-                animateCardIn(newsCard);
-            })
-            .catch((error) => {
-                console.error("Error fetching news:", error);
-                const newsContent = newsCard.querySelector(".news-content");
-                newsContent.innerHTML = "Error fetching news.";
-            });
+        fetch(`https://newsapi.org/v2/top-headlines?category=${category}&language=en&apiKey=${APIKey}`, {
+            headers: {
+                "Upgrade-Insecure-Requests": "1"
+            }
+        })
+        .then((response) => {
+            console.log(`Response status: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((json) => {
+            console.log(`API response for ${category}:`, json);
+            const newsContent = newsCard.querySelector(".news-content");
+            if (json.articles && json.articles.length > 0) {
+                const article = json.articles[Math.floor(Math.random() * json.articles.length)];
+                newsContent.innerHTML = `
+                    <h2>${article.title}</h2>
+                    <p>${article.description}</p>
+                    <a href="${article.url}" target="_blank">Read more</a>
+                `;
+            } else {
+                newsContent.innerHTML = "No news available.";
+            }
+            animateCardIn(newsCard);
+        })
+        .catch((error) => {
+            console.error("Error fetching news:", error);
+            const newsContent = newsCard.querySelector(".news-content");
+            newsContent.innerHTML = "Error fetching news.";
+        });
     }
 
     function animateCardIn(card) {
@@ -67,6 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function hideBackground() {
         document.getElementById("body").style.background = "transparent";
     }
+
+    window.hideBackground = hideBackground;
 
     document.querySelectorAll(".news-card").forEach((card) => {
         fetchNews(card);
