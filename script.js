@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const APIKey = "85783acfd55f4c66b5a8202a02298cb7";
     const closeButtons = document.querySelectorAll(".close-btn");
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 
     closeButtons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -23,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const category = newsCard.id.replace("-news", "");
         console.log(`Fetching news for category: ${category}`);
 
-        fetch(`https://newsapi.org/v2/top-headlines?category=${category}&language=en&apiKey=${APIKey}`, {
+        fetch(`${proxyUrl}https://newsapi.org/v2/top-headlines?category=${category}&language=en&apiKey=${APIKey}`, {
             headers: {
                 "Upgrade-Insecure-Requests": "1"
             }
